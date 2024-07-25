@@ -12,7 +12,7 @@ import os
 
 load_dotenv()
 
-OPEN_API_KEY = os.getenv('OPEN_API_KEY')
+OPEN_AI_KEY = os.getenv('OPEN_AI_KEY')
 
 
 app = Flask(__name__)
@@ -29,7 +29,7 @@ def hello_world():
 def individual_sale_analysis():
     rep_id = request.args.get('rep_id')
     agent = create_pandas_dataframe_agent(
-        ChatOpenAI(temperature=0, model="gpt-4",api_key=OPEN_API_KEY),
+        ChatOpenAI(temperature=0, model="gpt-4",api_key=OPEN_AI_KEY),
         df,
         verbose=True,
         agent_type=AgentType.OPENAI_FUNCTIONS,
@@ -42,7 +42,7 @@ def individual_sale_analysis():
 @app.route('/api/team_performance', methods=['GET'])
 def team_peformance_analysis():
     agent = create_pandas_dataframe_agent(
-        ChatOpenAI(temperature=0, model="gpt-4",api_key=OPEN_API_KEY),
+        ChatOpenAI(temperature=0, model="gpt-4",api_key=OPEN_AI_KEY),
         df,
         verbose=True,
         allow_dangerous_code=True,
@@ -59,7 +59,7 @@ def team_peformance_analysis():
 def performance_trends():
     time_period = request.args.get('time_period')
     agent = create_pandas_dataframe_agent(
-        ChatOpenAI(temperature=0.5, model="gpt-4",api_key=OPEN_API_KEY),
+        ChatOpenAI(temperature=0.5, model="gpt-4",api_key=OPEN_AI_KEY),
         df,
         verbose=True,
         agent_type="openai-tools",
